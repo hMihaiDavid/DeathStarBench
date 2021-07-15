@@ -1,0 +1,15 @@
+UID/res/
+US/res/
+SG/res/
+CP/res/
+
+UID/*.bc
+UID/*.ll
+US/*.bc
+US/*.ll
+SG/*.bc
+SG/*.ll
+CP/*.bc
+CP/*.ll
+
+*/mangle_map.txt

@@ -1,0 +1,8 @@
+appdirs==1.4.4
+cffi==1.14.6
+cxxfilt==0.2.2
+llvmcpy==0.1.5
+packaging==21.0
+pkg-resources==0.0.0
+pycparser==2.20
+pyparsing==2.4.7

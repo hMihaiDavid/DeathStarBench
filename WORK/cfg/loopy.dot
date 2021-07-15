@@ -1,0 +1,20 @@
+digraph G {
+label="CFG for 'loopy' function";
+Node1599683 [shape=record,label="b0"];
+Node1599683 -> Node1599688;
+Node1599688 [shape=record,label="b1"];
+Node1599688 -> Node1599693 [color=green];
+Node1599688 -> Node1599703 [color=red];
+Node1599693 [shape=record,label="b2"];
+Node1599693 -> Node1599698;
+Node1599698 [shape=record,label="b3"];
+Node1599698 -> Node1599688;
+Node1599703 [shape=record,label="b4"];
+Node1599703 -> Node1599708;
+Node1599708 [shape=record,label="b5"];
+Node1599708 -> Node1599713 [color=green];
+Node1599708 -> Node1599718 [color=red];
+Node1599713 [shape=record,label="b6"];
+Node1599713 -> Node1599708;
+Node1599718 [shape=record,label="b7"];
+}

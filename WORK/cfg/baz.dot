@@ -1,0 +1,4 @@
+digraph G {
+label="CFG for 'baz' function";
+Node1599541 [shape=record,label="b0"];
+}

@@ -1,0 +1,23 @@
+digraph G {
+label="CFG for 'main' function";
+Node1637296 [shape=record,color=blue,label="__isoc99_scanf"];
+Node1637296 -> Node1637301 [color=green];
+Node1637296 -> Node1637306 [color=red];
+Node1637301 [shape=record,label="b1"];
+Node1637301 -> Node1637336;
+Node1637306 [shape=record,label="b2"];
+Node1637306 -> Node1637326;
+Node1637306 -> Node1637311;
+Node1637306 -> Node1637316;
+Node1637306 -> Node1637321;
+Node1637311 [shape=record,color=blue,label="loopy, printf"];
+Node1637311 -> Node1637331;
+Node1637316 [shape=record,color=blue,label="callfp"];
+Node1637316 -> Node1637331;
+Node1637321 [shape=record,color=blue,label="exit"];
+Node1637326 [shape=record,color=blue,label="setfp"];
+Node1637326 -> Node1637331;
+Node1637331 [shape=record,label="b7"];
+Node1637331 -> Node1637336;
+Node1637336 [shape=record,label="b8"];
+}

@@ -1,0 +1,9 @@
+digraph G {
+label="CFG for 'setfp' function";
+Node1599626 [shape=record,label="b0"];
+Node1599626 -> Node1599723 [color=green];
+Node1599626 -> Node1637049 [color=red];
+Node1599723 [shape=record,label="b1"];
+Node1599723 -> Node1637049;
+Node1637049 [shape=record,label="b2"];
+}

@@ -1,0 +1,32 @@
+digraph us_socialNetwork {
+label="\lDependencies between microservices in socialNetwork application\lAn edge means source calls at leas one function in destination"
+
+	WriteHomeTimelineService [label="WriteHomeTimelineService"];
+	SocialGraphService [label="SocialGraphService"];
+	WriteHomeTimelineService -> SocialGraphService;
+	UserService [label="UserService"];
+	UserService -> SocialGraphService;
+	SocialGraphService -> UserService;
+	ComposePostService [label="ComposePostService"];
+	MediaService [label="MediaService"];
+	ComposePostService -> MediaService;
+	UniqueIdService [label="UniqueIdService"];
+	ComposePostService -> UniqueIdService;
+	UserTimelineService [label="UserTimelineService"];
+	ComposePostService -> UserTimelineService;
+	TextService [label="TextService"];
+	ComposePostService -> TextService;
+	HomeTimelineService [label="HomeTimelineService"];
+	ComposePostService -> HomeTimelineService;
+	ComposePostService -> UserService;
+	PostStorageService [label="PostStorageService"];
+	ComposePostService -> PostStorageService;
+	UrlShortenService [label="UrlShortenService"];
+	TextService -> UrlShortenService;
+	UserMentionService [label="UserMentionService"];
+	TextService -> UserMentionService;
+	UserTimelineService -> PostStorageService;
+	HomeTimelineService -> SocialGraphService;
+	HomeTimelineService -> PostStorageService;
+	PostStorageSerivce [label="PostStorageSerivce"];
+}
