@@ -31,3 +31,42 @@ target_link_libraries(
 )
 
 install(TARGETS SocialGraphService DESTINATION ./)
+
+add_library(
+    SocialGraphServiceLLVM
+    SocialGraphService.cpp
+    ${THRIFT_GEN_CPP_DIR}/SocialGraphService.cpp
+    ${THRIFT_GEN_CPP_DIR}/UserService.cpp
+    ${THRIFT_GEN_CPP_DIR}/social_network_types.cpp
+)
+
+target_include_directories(
+    SocialGraphServiceLLVM PRIVATE
+    ${MONGOC_INCLUDE_DIRS}
+    /usr/local/include/jaegertracing
+    /usr/local/include/hiredis
+    /usr/local/include/sw
+)
+
+target_link_libraries(
+    SocialGraphServiceLLVM
+    ${MONGOC_LIBRARIES}
+    ${THRIFT_LIB}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${Boost_LIBRARIES}
+    nlohmann_json::nlohmann_json
+    Boost::log
+    Boost::log_setup
+    /usr/local/lib/libjaegertracing.so
+    /usr/local/lib/libhiredis.a
+    /usr/local/lib/libhiredis_ssl.a
+    /usr/local/lib/libredis++.a
+    OpenSSL::SSL
+)
+
+target_compile_options(
+    SocialGraphServiceLLVM BEFORE
+    PRIVATE "-emit-llvm"
+)
+
+install(TARGETS SocialGraphServiceLLVM DESTINATION ./)
