@@ -247,8 +247,8 @@ services:
   user-mongodb:
     image: mongo
     hostname: user-mongodb
-    #    ports:
-    #      - 27023:27017
+#    ports:
+#        - 27017:27023
     depends_on:
       config:
         condition: service_completed_successfully
