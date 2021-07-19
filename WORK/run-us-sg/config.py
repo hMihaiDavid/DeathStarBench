@@ -64,7 +64,7 @@ def config_redis(tls, config_filename, port):
         #content = content.replace('tls-port 0', ('tls-port %d' % port))
     else:
         content = re.sub(r'port [0-9]+', ("port %d" % port), content)
-        content = re.sub(r'tls-port [0-9]+', "port 0", content)
+        content = re.sub(r'tls-port [0-9]+', "tls-port 0", content)
         #content = content.replace('port 0', ('port %d' % port))
         #content = content.replace('tls-port 6379', 'tls-port 0')
 
@@ -89,6 +89,10 @@ def config_services():
             if 'addr' in j[k]:
                 j[k]['addr'] = 'localhost'
 
+    for k in j:
+        if k.endswith("-service"):
+            if 'netif' in j[k]:
+                j[k]['netif'] = NETIF
 
     f.close()
     f = open('config/service-config.json', 'w')
@@ -112,6 +116,10 @@ tls = False # the original default was True
 tls_str = os.environ.get('TLS', '0').lower()
 if tls_str == '1' or tls_str == 'true':
     tls = True
+
+NETIF = "ens3" # default for my system, overwride wit NETIF env var
+if os.environ.get("NETIF"):
+    NETIF = os.environ.get("NETIF")
 
 subprocess.run(["rm", "-rf", "config"])
 subprocess.run(["cp", "-R", "../../socialNetwork/config/", "."])

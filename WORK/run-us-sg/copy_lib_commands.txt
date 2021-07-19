@@ -1,0 +1,5 @@
+mkdir lib
+cd lib
+# use the hash of the current dsb_build container
+sudo docker cp 54ae4df3bdb8:/lib .
+sudo docker cp 54ae4df3bdb8:/usr .
