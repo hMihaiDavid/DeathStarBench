@@ -1,5 +1,5 @@
 digraph us_socialNetwork {
-label="\lDependencies between microservices in socialNetwork application\lAn edge means source calls at leas one function in destination"
+label="\lDependencies between microservices in socialNetwork application\lAn edge means source calls at leas one function in destination\lGreen nodes are mongodb instances, Orange nodes are redis instances"
 
 	WriteHomeTimelineService [label="WriteHomeTimelineService"];
 	SocialGraphService [label="SocialGraphService"];
@@ -8,25 +8,39 @@ label="\lDependencies between microservices in socialNetwork application\lAn edg
 	UserService -> SocialGraphService;
 	SocialGraphService -> UserService;
 	ComposePostService [label="ComposePostService"];
-	MediaService [label="MediaService"];
-	ComposePostService -> MediaService;
 	UniqueIdService [label="UniqueIdService"];
 	ComposePostService -> UniqueIdService;
-	UserTimelineService [label="UserTimelineService"];
-	ComposePostService -> UserTimelineService;
+	PostStorageService [label="PostStorageService"];
+	ComposePostService -> PostStorageService;
+	ComposePostService -> UserService;
 	TextService [label="TextService"];
 	ComposePostService -> TextService;
 	HomeTimelineService [label="HomeTimelineService"];
 	ComposePostService -> HomeTimelineService;
-	ComposePostService -> UserService;
-	PostStorageService [label="PostStorageService"];
-	ComposePostService -> PostStorageService;
-	UrlShortenService [label="UrlShortenService"];
-	TextService -> UrlShortenService;
+	UserTimelineService [label="UserTimelineService"];
+	ComposePostService -> UserTimelineService;
+	MediaService [label="MediaService"];
+	ComposePostService -> MediaService;
 	UserMentionService [label="UserMentionService"];
 	TextService -> UserMentionService;
+	UrlShortenService [label="UrlShortenService"];
+	TextService -> UrlShortenService;
 	UserTimelineService -> PostStorageService;
 	HomeTimelineService -> SocialGraphService;
 	HomeTimelineService -> PostStorageService;
-	PostStorageSerivce [label="PostStorageSerivce"];
+	"social-graph-redis" [label="social-graph-redis",color=orange];
+	SocialGraphService -> "social-graph-redis";
+	"user-timeline-redis" [label="user-timeline-redis",color=orange];
+	UserTimelineService -> "user-timeline-redis";
+	"home-timeline-redis" [label="home-timeline-redis",color=orange];
+	HomeTimelineService -> "home-timeline-redis";
+	"user-mongodb" [label="user-mongodb",color=green];
+	UserMentionService -> "user-mongodb";
+	UserService -> "user-mongodb";
+	"social-graph-mongodb" [label="social-graph-mongodb",color=green];
+	SocialGraphService -> "social-graph-mongodb";
+	"user-timeline-mongodb" [label="user-timeline-mongodb",color=green];
+	UserTimelineService -> "user-timeline-mongodb";
+	"url-shorten-mongodb" [label="url-shorten-mongodb",color=green];
+	UrlShortenService -> "url-shorten-mongodb";
 }

@@ -1,10 +1,16 @@
 import subprocess
 import os
 import re
+import sys
 
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        print(("USAGE: %s <DeathStarBench application name (eg. socialNetwork)>") % sys.argv[0])
+        sys.exit(0)
+    app_name = sys.argv[1]
+
     deps = {}
-    os.chdir("../../socialNetwork/src")
+    os.chdir(("../../%s/src" % app_name))
     for line in subprocess.run(["grep", "-r", "-I", "ThriftClient<.*ServiceClient>"], stdout=subprocess.PIPE).stdout.decode('utf-8').splitlines():
         line = line.replace("::", "?")
         [f, t] = line.split(':')
@@ -26,8 +32,8 @@ if __name__ == '__main__':
 
     #print(deps)
 
-    print("digraph us_socialNetwork {")
-    print("label=\"\\lDependencies between microservices in socialNetwork application\\lAn edge means source calls at leas one function in destination\"\n")
+    print(("digraph us_%s {") % app_name)
+    print(("label=\"\\lDependencies between microservices in %s application\\lAn edge means source calls at leas one function in destination\\lGreen nodes are mongodb instances, Orange nodes are redis instances\"\n") % app_name)
     printed_nodes = set()
     for f, ts in deps.items():
         for t in ts:
@@ -114,6 +120,8 @@ if __name__ == '__main__':
         us = line.replace(".", "").replace("/","").strip()
         if not us:
             continue
+        if us == "PostStorageSerivce":
+            us = "PostStorageService"
         if not us in printed_nodes:
             print(("\t%s [label=\"%s\"];" % (us, us)))
     print("}")
