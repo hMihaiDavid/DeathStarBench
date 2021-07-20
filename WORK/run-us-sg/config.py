@@ -80,14 +80,15 @@ def config_services():
 
     j['user-service']['port'] = 2000
     j['user-mongodb']['port'] = 2001
+    j['user-memcached']['port'] = 2003
     j['social-graph-service']['port'] = 3000
     j['social-graph-mongodb']['port'] = 3001
     j['social-graph-redis']['port'] = 3002
 
     for k in j:
-        if k.endswith("-service") or k.endswith("-mongodb") or k.endswith("-redis"):
+        if k.endswith("-service") or k.endswith("-mongodb") or k.endswith("-redis") or k.endswith('-memcached'):
             if 'addr' in j[k]:
-                j[k]['addr'] = 'localhost'
+                j[k]['addr'] = 'localhost' # MAYBE MEMCACHED NEEDS 127.0.0.1
 
     for k in j:
         if k.endswith("-service"):

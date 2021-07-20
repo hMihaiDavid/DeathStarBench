@@ -1,4 +1,5 @@
 config/
 lib/
-thrift-0.14.2/
-thrift-0.14.2.tar.gz
+thriftc
+gen-py
+memcached

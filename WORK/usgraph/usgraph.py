@@ -33,7 +33,7 @@ if __name__ == '__main__':
     #print(deps)
 
     print(("digraph us_%s {") % app_name)
-    print(("label=\"\\lDependencies between microservices in %s application\\lAn edge means source calls at leas one function in destination\\lGreen nodes are mongodb instances, Orange nodes are redis instances\"\n") % app_name)
+    print(("label=\"\\lDependencies between microservices in %s application\\lAn edge means source calls at leas one function in destination\\lGreen nodes are mongodb instances, red nodes are redis instances, orange nodes are memcached instances\"\n") % app_name)
     printed_nodes = set()
     for f, ts in deps.items():
         for t in ts:
@@ -73,7 +73,7 @@ if __name__ == '__main__':
                 print(("\t%s [label=\"%s\"];" % (f, f)))
                 printed_nodes.add(f)
             if not t in printed_nodes:
-                print(("\t\"%s\" [label=\"%s\",color=orange];" % (t, t)))
+                print(("\t\"%s\" [label=\"%s\",color=red];" % (t, t)))
                 printed_nodes.add(t)
             print(("\t%s -> \"%s\";" % (f, t)))
 
@@ -112,6 +112,21 @@ if __name__ == '__main__':
                 printed_nodes.add(t)
             print(("\t%s -> \"%s\";" % (f, t)))
 
+    # memcached
+    # hardcoded for now (and only for socialNetwork)
+    if app_name == "socialNetwork":
+        hardcoded = {'UserMentionService': ['user-memcached'], 'UserService': ['user-memcached'],
+                     'PostStorageService': ['post-storage-memcached'],
+                     'UrlShortenService' : ['url-shorten-memcached']}
+        for f, ts in hardcoded.items():
+            for t in ts:
+                if not f in printed_nodes:
+                    print(("\t%s [label=\"%s\"];" % (f, f)))
+                    printed_nodes.add(f)
+                if not t in printed_nodes:
+                    print(("\t\"%s\" [label=\"%s\",color=orange];" % (t, t)))
+                    printed_nodes.add(t)
+                print(("\t%s -> \"%s\";" % (f, t)))
 
 
 
